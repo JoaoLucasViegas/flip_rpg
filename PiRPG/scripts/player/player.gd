@@ -25,7 +25,6 @@ var state = states.IDLE
 
 @onready var tile_size = Global.TILE_SIZE
 
-var last_direction = Vector2.ZERO
 var picked_direction = Vector2.ZERO
 var has_next_move = false
 var is_looping_anim = false
@@ -43,10 +42,10 @@ func _physics_process(_delta: float) -> void:
 	# It might not be "proper" but it's fine for now and better yet, it's easy 
 	# to change if needed later on.
 	var keys: Array[bool] = [
-		Input.is_action_pressed("ui_left") and !ray_l.is_colliding(),
-		Input.is_action_pressed("ui_right") and !ray_r.is_colliding(),
-		Input.is_action_pressed("ui_down") and !ray_d.is_colliding(),
-		Input.is_action_pressed("ui_up") and !ray_u.is_colliding()
+		Input.is_action_pressed("player_mv_left") and !ray_l.is_colliding(),
+		Input.is_action_pressed("player_mv_right") and !ray_r.is_colliding(),
+		Input.is_action_pressed("player_mv_down") and !ray_d.is_colliding(),
+		Input.is_action_pressed("player_mv_up") and !ray_u.is_colliding()
 	]
 	
 	# Simple "query" so you pick the first input that was found on the keymap.
@@ -69,16 +68,17 @@ func _physics_process(_delta: float) -> void:
 		MOVEMENT_KEYS.UP: input_vector = Vector2.UP
 	
 	# Trying to simplify the explanation, it tries to make a move based on the input.
-	# If input is valid (no walls/collision) it will be used on the if down below.
+	# If input is valid (no walls/collision) it will be used on the IF down below.
 	#
-	# Also this if down here just "pick" a valid direction, so instead of moving on the
+	# Also this IF down here just "pick" a valid direction, so instead of moving on the
 	# same frame you picked a decision, it stores the value evaluated on last frame and
 	# if that was valid, it will run on the next one.
 	# Notice the "has_next_move". This is basically a "preview" movement before you actually move.
 	#
 	# Also it only needed to be this way because of the raycast. It only queries at 1 frame.
-	# So, if you have a collision on 1 frame, it will never know... But if you try a move, store
-	# and on the next check for a collision, then you will filter and avoid further bugs.
+	# So, if you have a collision on a different frame, it will never know...
+	# But if you evaluate the input, store the data and wait for collisions, then you will
+	# filter the raycast problem and will avoid further bugs.
 	var probable_movement = global_position.snappedf(tile_size) + (input_vector * tile_size)
 	if input_vector != Vector2.ZERO and not has_next_move:
 		has_next_move = true
@@ -101,7 +101,7 @@ func _physics_process(_delta: float) -> void:
 	if state == states.IDLE:
 		if is_looping_anim and keys_idx < 0:
 			state = states.IDLE
-			try_animation(animation_sprite, get_animation_string(picked_direction))
+			Tools.try_animation(animation_sprite, Tools.get_animation_string(state, picked_direction))
 			is_looping_anim = true
 		
 		if input_vector and not $IdleTimer.time_left and has_next_move:
@@ -120,36 +120,8 @@ func _physics_process(_delta: float) -> void:
 			$WalkTimer.start(walk_timeout)
 			has_next_move = false
 	elif state == states.WALK:
-		try_animation(animation_sprite, get_animation_string(picked_direction))
+		Tools.try_animation(animation_sprite, Tools.get_animation_string(state, picked_direction))
 		is_looping_anim = true
-
-# That's an shortcut function I made for the script. This is also
-# good for a Tool class later on.
-func try_animation(anim_sprite: AnimatedSprite2D, anim_name: String):
-	var spriteframes = anim_sprite.sprite_frames
-	if spriteframes.has_animation(anim_name):
-		anim_sprite.play(anim_name)
-
-# Same code. I actually think I'll make a "tool class" just for these kind of codes.
-# It's reusable and it's been repeated.
-# But since this code is literally a copy+paste from the enemyBase, I didn't bothered.
-# It's for the sake of reimplementing movement, this thing is just a tool really.
-func get_animation_string(direction: Vector2) -> String:
-	var string = "idle_"
-	if state == states.WALK:
-		string = "walk_"
-
-	match direction:
-		Vector2.LEFT:
-			string += "left"
-		Vector2.RIGHT:
-			string += "right"
-		Vector2.UP:
-			string += "up"
-		_:
-			string += "down"
-
-	return string
 
 # Same stuff from the enemy/mob code.
 func _on_walk_timer_timeout() -> void:

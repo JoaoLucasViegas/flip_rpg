@@ -57,6 +57,8 @@ animations = [{
 radius = 6.0
 
 [node name="Fireball" type="Area2D"]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_q3o1l")
 
 [node name="Fireball Sprite Sheet" type="AnimatedSprite2D" parent="."]
@@ -69,3 +71,4 @@ frame_progress = 0.66969
 shape = SubResource("CircleShape2D_r5ydp")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,12 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://bna0h3rvgxqur"]
+[gd_scene load_steps=5 format=3 uid="uid://bna0h3rvgxqur"]
 
 [ext_resource type="Script" uid="uid://cfng4jur507cq" path="res://scripts/enemies/EnemyBase.gd" id="1_a7egk"]
 [ext_resource type="SpriteFrames" uid="uid://b6fp05v6qy8us" path="res://resources/sprite_frames/aligator.tres" id="2_ufl0x"]
+[ext_resource type="PackedScene" uid="uid://b04pvkwsly5ob" path="res://prefabs/components/health_component.tscn" id="3_ddqvn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d0s11"]
 size = Vector2(16, 16)
 
 [node name="Aligator" type="AnimatableBody2D"]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_a7egk")
 metadata/_custom_type_script = "uid://cfng4jur507cq"
 
@@ -38,3 +41,6 @@ collide_with_areas = true
 
 [node name="coll" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_d0s11")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_ddqvn")]
+collision_mask = 0

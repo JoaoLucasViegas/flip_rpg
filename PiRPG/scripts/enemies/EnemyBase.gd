@@ -75,10 +75,10 @@ func _physics_process(_delta: float) -> void:
 		state = states.WALK
 		$WalkTimer.start(randf_range(walk_timeout/2, walk_timeout*2))
 	elif state == states.WALK:
-
-		var animation_name = get_animation_string(picked_direction)
-		if animation_sprite.sprite_frames.has_animation(animation_name):
-			animation_sprite.play(animation_name)
+		Tools.try_animation(animation_sprite, Tools.get_animation_string(state, picked_direction))
+		#var animation_name =  
+		#if animation_sprite.sprite_frames.has_animation(animation_name):
+			#animation_sprite.play(animation_name)
 	
 	# This is a raycast code, this is where the enemy knows where to go (if it has collision)
 	# or if he must take another turn because his pick was wrong.
@@ -97,28 +97,6 @@ func _physics_process(_delta: float) -> void:
 		#direction = global_position
 		#return
 
-# Cool function to cut the work of doing it manually. Also notice I'm using it
-# just to generate a string. Whatever the way you use it, you must make sure it
-# will work. For example, on the original source code, there was an enemy that was having
-# problems with animation cause the name of animation didn't existed/was missing
-# on it's implementation.
-func get_animation_string(direction: Vector2) -> String:
-	var string = "idle_"
-	if state == states.WALK:
-		string = "walk_"
-
-	match direction:
-		Vector2.LEFT:
-			string += "left"
-		Vector2.RIGHT:
-			string += "right"
-		Vector2.UP:
-			string += "up"
-		_:
-			string += "down"
-
-	return string
-
 # It's a signal connection you make through the editor. You pick a node on your
 # scenetree on the left, go to the inspector tab and will find a "Node" button
 # right on top. There you might connect signals without having to use _ready
@@ -127,8 +105,12 @@ func get_animation_string(direction: Vector2) -> String:
 func _on_walk_timer_timeout() -> void:
 	state = states.IDLE
 
-	var animation_name = get_animation_string(picked_direction)
-	if animation_sprite.sprite_frames.has_animation(animation_name):
-		animation_sprite.play(animation_name)
+	Tools.try_animation(animation_sprite, Tools.get_animation_string(state, picked_direction))
+	#var animation_name = get_animation_string(picked_direction)
+	#if animation_sprite.sprite_frames.has_animation(animation_name):
+		#animation_sprite.play(animation_name)
 
 	$IdleTimer.start(randf_range(idle_timeout/2, idle_timeout))
+
+func kill():
+	queue_free()
