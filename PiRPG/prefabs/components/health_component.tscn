@@ -18,6 +18,8 @@ bg_color = Color(0, 0.57913536, 0.9970173, 1)
 corner_detail = 6
 
 [node name="HealthComponent" type="Area2D"]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_5qc87")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

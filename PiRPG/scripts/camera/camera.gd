@@ -1,4 +1,4 @@
-extends Camera2D
+class_name GameCamera extends Camera2D
 
 # Exports a field on the editor so level design is easier
 @export_node_path("Map") var map_ref

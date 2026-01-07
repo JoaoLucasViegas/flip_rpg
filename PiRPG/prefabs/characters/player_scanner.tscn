@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://wsbyn1t8vqtu"]
+
+[ext_resource type="Script" uid="uid://bc44rs38f30kd" path="res://scripts/combat/player_scanner.gd" id="1_jsfgw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3eka1"]
+radius = 80.0
+
+[node name="PlayerScanner" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("1_jsfgw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3eka1")

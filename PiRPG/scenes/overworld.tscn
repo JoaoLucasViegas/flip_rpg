@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://i1xsmj3dw42s" path="res://scripts/maps/map.gd" id="1_3pkei"]
 [ext_resource type="Texture2D" uid="uid://dof7qmco2n6j6" path="res://sprites/tilesets/tileset_kscav.png" id="3_hfqwy"]
 [ext_resource type="PackedScene" uid="uid://bxbbu2a4pgk10" path="res://prefabs/characters/player/player.tscn" id="4_lqb4u"]
-[ext_resource type="PackedScene" uid="uid://bgqb3yiarx0wk" path="res://scripts/ui/hud.tscn" id="5_3pkei"]
+[ext_resource type="PackedScene" uid="uid://bgqb3yiarx0wk" path="res://scenes/dev/hud.tscn" id="5_3pkei"]
 [ext_resource type="Script" uid="uid://bva6fcv3l2j8r" path="res://scripts/camera/camera.gd" id="5_q76ag"]
 [ext_resource type="PackedScene" uid="uid://bmcermplqr7pn" path="res://prefabs/characters/EnemyBase.tscn" id="6_eab5i"]
 

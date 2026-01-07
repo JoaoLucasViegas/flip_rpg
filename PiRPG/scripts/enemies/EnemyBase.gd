@@ -13,6 +13,8 @@ class_name EnemyBase extends AnimatableBody2D
 # | for the future debugging.
 # | ---------------------
 
+@onready var death_sprite = preload("res://prefabs/effects/dead_sprite.tscn")
+
 enum states {IDLE, WALK}
 var state = states.IDLE
 
@@ -113,4 +115,7 @@ func _on_walk_timer_timeout() -> void:
 	$IdleTimer.start(randf_range(idle_timeout/2, idle_timeout))
 
 func kill():
+	var dead: AnimatedSprite2D = death_sprite.instantiate()
+	dead.global_position = global_position
+	get_tree().get_nodes_in_group("trash").front().add_child(dead)
 	queue_free()

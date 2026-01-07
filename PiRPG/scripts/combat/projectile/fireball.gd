@@ -4,7 +4,7 @@ class_name FireballAttack extends Area2D
 @export var projectile_speed: int = 80
 @export var lifetime: float = 1.5
 
-var damage_amount = 20.0
+var damage_amount = 15.0
 
 var direction := Vector2.ZERO
 
@@ -34,4 +34,5 @@ func _on_area_entered(area: Area2D) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if not body is EnemyBase:
-		queue_free()
+		pass
+		#queue_free()

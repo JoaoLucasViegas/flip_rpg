@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://d23q6xnxeph4m"]
+
+[node name="Trash" type="Node2D" groups=["trash"]]
+z_index = 3

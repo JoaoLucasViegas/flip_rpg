@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://cvox7fjn4fehm"]
+
+[ext_resource type="Texture2D" uid="uid://bisi2dgsgf7lt" path="res://sprites/effects/ko_effect.png" id="1_166xe"]
+[ext_resource type="Script" uid="uid://cgketpy6nlpau" path="res://scripts/postfx/dead_sprite.gd" id="2_iq5x8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xsee6"]
+atlas = ExtResource("1_166xe")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7vlsn"]
+atlas = ExtResource("1_166xe")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3xajs"]
+atlas = ExtResource("1_166xe")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ycvqt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xsee6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7vlsn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3xajs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7vlsn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xsee6")
+}],
+"loop": false,
+"name": &"die",
+"speed": 12.0
+}]
+
+[node name="DeadSprite" type="AnimatedSprite2D"]
+z_index = 2
+z_as_relative = false
+sprite_frames = SubResource("SpriteFrames_ycvqt")
+animation = &"die"
+autoplay = "die"
+frame = 4
+frame_progress = 1.0
+script = ExtResource("2_iq5x8")

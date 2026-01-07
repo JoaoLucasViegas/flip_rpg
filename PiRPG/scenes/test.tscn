@@ -1,11 +1,11 @@
 [gd_scene load_steps=10 format=4 uid="uid://dgw53gdb07il"]
 
 [ext_resource type="Script" uid="uid://i1xsmj3dw42s" path="res://scripts/maps/map.gd" id="1_lpvoh"]
-[ext_resource type="PackedScene" uid="uid://bgqb3yiarx0wk" path="res://scripts/ui/hud.tscn" id="2_at5dv"]
 [ext_resource type="Texture2D" uid="uid://dof7qmco2n6j6" path="res://sprites/tilesets/tileset_kscav.png" id="3_jcd4p"]
-[ext_resource type="PackedScene" uid="uid://bxbbu2a4pgk10" path="res://prefabs/characters/player/player.tscn" id="4_uacia"]
 [ext_resource type="Script" uid="uid://bva6fcv3l2j8r" path="res://scripts/camera/camera.gd" id="5_yk7ts"]
-[ext_resource type="PackedScene" uid="uid://bna0h3rvgxqur" path="res://prefabs/characters/mobs/aligator.tscn" id="6_uacia"]
+[ext_resource type="PackedScene" uid="uid://cumdq31cvcvw0" path="res://prefabs/characters/player/player_free_move.tscn" id="7_at5dv"]
+[ext_resource type="PackedScene" uid="uid://bjrxnrue54uov" path="res://prefabs/characters/mobs/harpy.tscn" id="7_jcd4p"]
+[ext_resource type="PackedScene" uid="uid://b0lu3618hxdxe" path="res://prefabs/characters/mobs/snail.tscn" id="8_uacia"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lx7qf"]
 texture = ExtResource("3_jcd4p")
@@ -735,8 +735,6 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 472, -8, 472, 3
 script = ExtResource("1_lpvoh")
 main_tile_map = NodePath("Map/Ground")
 
-[node name="HUD" parent="." instance=ExtResource("2_at5dv")]
-
 [node name="Map" type="Node2D" parent="."]
 
 [node name="Ground" type="TileMapLayer" parent="Map"]
@@ -763,34 +761,24 @@ navigation_polygon = SubResource("NavigationPolygon_lpvoh")
 
 [node name="Entities" type="Node2D" parent="."]
 
-[node name="Player" parent="Entities" instance=ExtResource("4_uacia")]
-z_index = 1
-position = Vector2(160, 96)
+[node name="PlayerFreeMove" parent="Entities" instance=ExtResource("7_at5dv")]
+position = Vector2(184, 112)
 
-[node name="Camera2D" type="Camera2D" parent="Entities/Player"]
+[node name="GameCamera" type="Camera2D" parent="Entities/PlayerFreeMove"]
 zoom = Vector2(2, 2)
+editor_draw_limits = true
+editor_draw_drag_margin = true
 script = ExtResource("5_yk7ts")
 map_ref = NodePath("../../..")
+metadata/_custom_type_script = "uid://bva6fcv3l2j8r"
 
 [node name="Mobs" type="Node2D" parent="Entities"]
 
-[node name="Aligator" parent="Entities/Mobs" instance=ExtResource("6_uacia")]
-position = Vector2(144, 144)
+[node name="Harpy" parent="Entities/Mobs" instance=ExtResource("7_jcd4p")]
+position = Vector2(429, 159)
 
-[node name="Aligator2" parent="Entities/Mobs" instance=ExtResource("6_uacia")]
-position = Vector2(304, 304)
+[node name="Harpy2" parent="Entities/Mobs" instance=ExtResource("7_jcd4p")]
+position = Vector2(77, 296)
 
-[node name="Aligator3" parent="Entities/Mobs" instance=ExtResource("6_uacia")]
-position = Vector2(432, 64)
-
-[node name="Aligator4" parent="Entities/Mobs" instance=ExtResource("6_uacia")]
-position = Vector2(352, 176)
-
-[node name="Aligator5" parent="Entities/Mobs" instance=ExtResource("6_uacia")]
-position = Vector2(32, 240)
-
-[node name="Aligator6" parent="Entities/Mobs" instance=ExtResource("6_uacia")]
-position = Vector2(432, 320)
-
-[node name="Aligator7" parent="Entities/Mobs" instance=ExtResource("6_uacia")]
-position = Vector2(208, 32)
+[node name="Snail" parent="Entities/Mobs" instance=ExtResource("8_uacia")]
+position = Vector2(204, 190)
