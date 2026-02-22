@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://b04pvkwsly5ob"]
+
+[ext_resource type="Script" uid="uid://dt5ytg64rqn0d" path="res://scripts/components/health_component.gd" id="1_5qc87"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c85hh"]
+radius = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5qc87"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0, 0, 1)
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxjmg"]
+bg_color = Color(0, 0.57913536, 0.9970173, 1)
+corner_detail = 6
+
+[node name="HealthComponent" type="Area2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_5qc87")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_c85hh")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(16, -4)
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 8.0
+offset_bottom = -12.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_5qc87")
+theme_override_styles/fill = SubResource("StyleBoxFlat_lxjmg")
+step = 1.0
+value = 20.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

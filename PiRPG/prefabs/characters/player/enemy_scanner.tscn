@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dv0ebnbmq4rjo"]
+
+[ext_resource type="Script" uid="uid://bsahvppys304i" path="res://scripts/combat/enemy_scanner.gd" id="1_t5usl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3eka1"]
+radius = 40.0
+
+[node name="EnemyScanner" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("1_t5usl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3eka1")
